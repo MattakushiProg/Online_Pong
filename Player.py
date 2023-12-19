@@ -26,6 +26,7 @@ class Player():
         self.color = color
         self.rect = (x, y, width, height)
         self.vel = 5
+        self.yFac = 0 # 1 - вверх (-1) - вниз
         
     def draw(self, win): #Отрисовка ишрока в окне
         """
@@ -41,11 +42,15 @@ class Player():
         """
         keys = pygame.key.get_pressed() # Переменная кей запоминает, какая клавиша нажата
         
+        self.yFac = 0
+        
         if keys[pygame.K_UP]:
             self.y -= self.vel #Если нажато вверх то уменьшить игрек на фикс длину (1 кадр)
+            self.yFac = 1
             
         if keys[pygame.K_DOWN]:
             self.y += self.vel
+            self.yFac = -1
         
         self.update()   # Переписать переменную rect 
             

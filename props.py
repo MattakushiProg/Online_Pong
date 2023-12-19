@@ -16,8 +16,10 @@ class Ball:
             self.velocity = self.velocity[0], -self.velocity[1]
         elif surf == "y":
             self.velocity = -self.velocity[0], self.velocity[1]
-        if prop is not None:
-            self.velocity = self.velocity[0], self.velocity[1] + 1 * prop.vel
+        if prop is not None and prop.yFac > 0:
+            self.velocity = self.velocity[0], self.velocity[1] - 0.5 * prop.vel
+        elif prop is not None and prop.yFac < 0:
+            self.velocity = self.velocity[0], self.velocity[1] + 0.5 * prop.vel
 
     def check_collision(self, prop):
         if prop.x <= self.cords[0] <= prop.x + prop.width and prop.y <= self.cords[1] <= prop.y + prop.height:

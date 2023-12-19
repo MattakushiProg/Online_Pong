@@ -18,9 +18,8 @@ def redrawWindow(win, player, player2, ball):
 
 def main():
     run = True
-    b = Ball(300, 300, 5, velocity=(3, 0))
     n = Network()
-    p = n.getP()
+    p, b = n.getP()
     
     clock = pygame.time.Clock()
     
@@ -34,6 +33,6 @@ def main():
                 pygame.quit()
         p.move()
         b.move([p, p2])
-        redrawWindow(win, p, p2, b)
+        redrawWindow(win, p, p2, ball)
         
 main()
