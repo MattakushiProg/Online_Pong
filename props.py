@@ -1,4 +1,6 @@
 import pygame
+from random import randrange
+
 
 class Ball:
     """
@@ -11,14 +13,20 @@ class Ball:
     :param velocity: speed of moving ball. Literally the distance, which rectangle is passing during time of one frame. Includes x-speed and y-speed
     :type velocity: list
     """
-    def __init__(self, start_x, start_y, radius, color=(255, 255, 255), velocity=(0, 0)):
+
+    def __init__(
+        self, start_x, start_y, radius, color=(255, 255, 255), velocity=(0, 0)
+    ):
         self.cords = start_x, start_y
         self.radius = radius
         self.color = color
         self.velocity = velocity
+        self.explosion_value = 0
 
     def draw(self, window):
-        pygame.draw.circle(window, color=self.color, center=self.cords, radius=self.radius)
+        pygame.draw.circle(
+            window, color=self.color, center=self.cords, radius=self.radius
+        )
         print(self.cords)
 
     def deflect(self, surf, prop=None):
@@ -32,12 +40,19 @@ class Ball:
             self.velocity = self.velocity[0], self.velocity[1] + 0.5 * prop.vel
 
     def check_collision(self, prop):
-        if prop.x <= self.cords[0] <= prop.x + prop.width and prop.y <= self.cords[1] <= prop.y + prop.height:
+        if (
+            prop.x <= self.cords[0] <= prop.x + prop.width
+            and prop.y <= self.cords[1] <= prop.y + prop.height
+        ):
+            self.explode()
             return True
         return False
 
     def move_forward(self):
-        self.cords = self.cords[0] + self.velocity[0], self.cords[1] + self.velocity[1]
+        self.cords = (
+            self.cords[0] + self.velocity[0],
+            self.cords[1] + self.velocity[1],
+        )
 
     def move(self, game_props):
         for prop in game_props:
@@ -45,8 +60,26 @@ class Ball:
                 self.deflect("y", prop)
 
         if not 0 < self.cords[0] < 600:
-            self.deflect('y')
+            self.deflect("y")
         if not 0 < self.cords[1] < 600:
             self.deflect("x")
         self.move_forward()
-        
+        self.check_if_explode()
+        self.check_if_pop()
+
+    def explode(self):
+        self.explosion_value = 7
+
+    def check_if_explode(self):
+        if self.explosion_value > 0:
+            self.explosion_value -= 1
+            self.radius += 1
+
+    def check_if_pop(self):
+        if self.radius >= 40:
+            self.radius = 5
+            self.color = (
+                randrange(0, 255),
+                randrange(0, 255),
+                randrange(0, 255),
+            )
