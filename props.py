@@ -1,6 +1,16 @@
 import pygame
 
 class Ball:
+    """
+    :param cords: coordinates of ball, x and y
+    :type coords: list
+    :param radius: radius of the ball
+    :type radius: int
+    :param color: color of the ball, includes values for pixel components
+    :type color: list
+    :param velocity: speed of moving ball. Literally the distance, which rectangle is passing during time of one frame. Includes x-speed and y-speed
+    :type velocity: list
+    """
     def __init__(self, start_x, start_y, radius, color=(255, 255, 255), velocity=(0, 0)):
         self.cords = start_x, start_y
         self.radius = radius
@@ -39,6 +49,3 @@ class Ball:
         if not 0 < self.cords[1] < 600:
             self.deflect("x")
         self.move_forward()
-
-    def serialize(self) -> str:
-        return f"|{self.cords}:{self.velocity}"

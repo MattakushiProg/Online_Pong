@@ -18,6 +18,8 @@ class Player():
         :type rect: typle
         :param vel: speed of moving rectangle. Literally the distance, which rectangle is passing during time of one frame
         :type vel: int
+        :param yFac: direction of player moving
+        :type yFac: int
         """
         self.x = x
         self.y = y
