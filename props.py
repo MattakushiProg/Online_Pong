@@ -45,7 +45,8 @@ class Ball:
                 self.deflect("y", prop)
 
         if not 0 < self.cords[0] < 600:
-            self.deflect("y")
+            self.deflect('y')
         if not 0 < self.cords[1] < 600:
             self.deflect("x")
         self.move_forward()
+        

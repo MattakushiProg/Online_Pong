@@ -53,6 +53,11 @@ class Player():
         if keys[pygame.K_DOWN]:
             self.y += self.vel
             self.yFac = -1
+            
+        if  self.y >= 600 - self.height:
+            self.y = 600 - self.height
+        if self.y <= 0:
+            self.y = 0
         
         self.update()   # Переписать переменную rect 
             
